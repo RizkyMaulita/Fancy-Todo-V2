@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+/* Navbar */
+.bg-nav {
+  background-color: #6397FF;
+}
+
+/* Login */
+.img-login {
+  width: 500px;
+  padding-left: 10px;
+}
+.btn-login {
+  background-color: #6397ffc2;
+}
