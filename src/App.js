@@ -2,7 +2,7 @@
 import './App.css';
 import Navbar from './components/Navbar'
 import Login from './pages/Login'
-import Home from './pages/Home'
+import Home from './pages/Home.jsx'
 import { BrowserRouter as Router, Route, useHistory} from 'react-router-dom'
 import { Fragment } from 'react';
 

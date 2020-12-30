@@ -50,3 +50,20 @@
 .btn-login {
   background-color: #6397ffc2;
 }
+
+.link-login {
+  text-decoration: none;
+  color: black;
+}
+
+/* Todo */
+.btn-create {
+  background-color: #6397ffc4;
+  width: 200px;
+}
+.btn-edit {
+  background-color: #6397ffb6;
+}
+.btn-done {
+  background-color: rgba(0, 255, 255, 0.719);
+}

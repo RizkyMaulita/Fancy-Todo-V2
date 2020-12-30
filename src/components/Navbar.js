@@ -27,7 +27,7 @@ export default class Navbar extends Component {
       <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-nav">
           <div className="container-fluid">
-            <button className="btn navbar-brand">Navbar</button>
+            <button className="btn navbar-brand">Fancy Todo</button>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
@@ -38,7 +38,7 @@ export default class Navbar extends Component {
                 </li>
               </ul>
               <div className="d-flex">
-                {!localStorage.getItem('access_token') && <button className="btn p-2"><Link to="/login">Login</Link></button> }
+                {!localStorage.getItem('access_token') && <button className="btn p-2"><Link to="/login" className="link-login">Login</Link></button> }
                 {localStorage.getItem('access_token') && <button className="btn p-2" onClick={(e) => this.logout(e)}>Logout</button> }
               </div>
             </div>
