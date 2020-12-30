@@ -19,6 +19,16 @@ class Todo extends Component {
       .then(_ => {this.props.fetchTodo()})
       .catch(err => console.log(err))
   }
+  deleteTodo (e) {
+    e.preventDefault()
+    axios({
+      url:`/todos/${this.props.todo.id}`,
+      method: 'DELETE',
+      headers: {access_token: localStorage.getItem('access_token')}
+    })
+      .then(_ => {this.props.fetchTodo()})
+      .catch(err => console.log(err))
+  }
   render() {
     return (
       <div className="col mb-4">
@@ -45,7 +55,7 @@ class Todo extends Component {
           <div className="card-footer mx-auto">
             <button className="btn btn-edit mx-1" onClick={(e) => this.editTodo(e)}> Edit </button>
             <button className="btn btn-done mx-1" onClick={(e) => this.changeStatus(e)}>Done</button>
-            <button className="btn btn-danger mx-1">Delete</button>
+            <button className="btn btn-danger mx-1" onClick={(e) => this.deleteTodo(e)}>Delete</button>
           </div>
         </div>
       </div>
