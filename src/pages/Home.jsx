@@ -32,7 +32,9 @@ export default class Home extends Component {
         console.log(err)
       })
   }
-
+  editTodo (id) {
+    this.props.history.push(`/todos/${id}`)
+  }
   render () {
     return (
       <div>
@@ -48,7 +50,7 @@ export default class Home extends Component {
                 <div className="card-body row row-cols-1 row-cols-md-2">
                   {/* --- Loop Data --- */}
                   {this.state.todos.map((e) => (
-                   <Todo key={e.id} todo={e} fetchTodo={() => this.fetchTodo()}></Todo> 
+                   <Todo key={e.id} todo={e} fetchTodo={() => this.fetchTodo()} editTodo={(id) =>this.editTodo(id)}></Todo> 
                   ))}
                 </div>
               </div>

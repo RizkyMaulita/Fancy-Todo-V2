@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import axios from '../config/axiosinstance'
 class Todo extends Component {
+  editTodo (e) {
+    e.preventDefault()
+    this.props.editTodo(this.props.todo.id)
+  }
   changeStatus (e) {
     e.preventDefault()
     console.log(this.props, '<<<')
@@ -39,7 +43,7 @@ class Todo extends Component {
             </table>
           </div>
           <div className="card-footer mx-auto">
-            <button className="btn btn-edit mx-1"> Edit </button>
+            <button className="btn btn-edit mx-1" onClick={(e) => this.editTodo(e)}> Edit </button>
             <button className="btn btn-done mx-1" onClick={(e) => this.changeStatus(e)}>Done</button>
             <button className="btn btn-danger mx-1">Delete</button>
           </div>

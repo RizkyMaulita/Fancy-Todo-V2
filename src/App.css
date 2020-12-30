@@ -67,3 +67,8 @@
 .btn-done {
   background-color: rgba(0, 255, 255, 0.719);
 }
+/* Edit */
+.btn-update {
+  background-color: #6397ffb6;
+  width: 130px;
+}
