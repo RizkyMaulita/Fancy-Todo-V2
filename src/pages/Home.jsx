@@ -48,7 +48,7 @@ export default class Home extends Component {
                 <div className="card-body row row-cols-1 row-cols-md-2">
                   {/* --- Loop Data --- */}
                   {this.state.todos.map((e) => (
-                   <Todo key={e.id} todo={e} ></Todo> 
+                   <Todo key={e.id} todo={e} fetchTodo={() => this.fetchTodo()}></Todo> 
                   ))}
                 </div>
               </div>

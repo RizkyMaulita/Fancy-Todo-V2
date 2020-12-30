@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
-
+import axios from '../config/axiosinstance'
 class Todo extends Component {
+  changeStatus (e) {
+    e.preventDefault()
+    console.log(this.props, '<<<')
+    axios({
+      url: `/todos/${this.props.todo.id}`,
+      method: 'PATCH',
+      headers: {
+        access_token: localStorage.getItem('access_token')
+      },
+      data: { status: 'done' }
+    })
+      .then(_ => {this.props.fetchTodo()})
+      .catch(err => console.log(err))
+  }
   render() {
     return (
       <div className="col mb-4">
@@ -26,7 +40,7 @@ class Todo extends Component {
           </div>
           <div className="card-footer mx-auto">
             <button className="btn btn-edit mx-1"> Edit </button>
-            <button className="btn btn-done mx-1">Done</button>
+            <button className="btn btn-done mx-1" onClick={(e) => this.changeStatus(e)}>Done</button>
             <button className="btn btn-danger mx-1">Delete</button>
           </div>
         </div>
