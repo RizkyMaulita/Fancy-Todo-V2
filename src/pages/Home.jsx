@@ -1,12 +1,14 @@
 import axios from '../config/axiosinstance'
 import React, {Component} from 'react'
 import Todo from '../components/Todo.jsx'
+import CreateTodo from '../components/CreateTodo.jsx'
 
 export default class Home extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      todos: []
+      todos: [],
+      statusCreateTodo: false
     }
   }
   componentDidMount () {
@@ -35,6 +37,14 @@ export default class Home extends Component {
   editTodo (id) {
     this.props.history.push(`/todos/${id}`)
   }
+
+  createTodo (e) {
+    e.preventDefault()
+    const status = this.state.statusCreateTodo
+    this.setState({
+      ...this.state,
+      statusCreateTodo: !status })
+  }
   render () {
     return (
       <div>
@@ -45,8 +55,14 @@ export default class Home extends Component {
                 <div className="card-header text-center">
                   <h5>Your Todo List</h5>
                 </div>
-                <button className="btn btn-create mx-auto my-2"> Create New Todo</button>
+                <button className="btn btn-create mx-auto my-2" onClick={(e) => this.createTodo(e)}> Create New Todo</button>
                 {/* ---- harus ada form disini ---- */}
+                {this.state.statusCreateTodo && 
+                  <CreateTodo fetchTodo={() => this.fetchTodo()} status={() => this.setState({
+                    ...this.state,
+                    statusCreateTodo: false
+                  })}></CreateTodo>
+                }
                 <div className="card-body row row-cols-1 row-cols-md-2">
                   {/* --- Loop Data --- */}
                   {this.state.todos.map((e) => (

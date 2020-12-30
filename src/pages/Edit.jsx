@@ -5,7 +5,10 @@ export default class Edit extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      todo: {}
+      title: '',
+      description: '',
+      status: '',
+      due_date: ''
     }
   }
 
@@ -22,26 +25,29 @@ export default class Edit extends Component {
       }
     })
       .then(({data}) => {
-        console.log(data)
-        this.setState({
-          ...this.state,
-          todo: data.data
-        })
+        this.setState({ title: data.data.title })
+        this.setState({ description: data.data.description })
+        this.setState({ status: data.data.status })
+        this.setState({ due_date: data.data.due_date })
       })
       .catch(err => console.log(err))
   }
 
   editTodo (e) {
     e.preventDefault()
-    console.log(this.state.todo, "<<<< hasil edit")
-    // this.props.history.push('/')
+    const payload = {
+      title: this.state.title,
+      description: this.state.description,
+      status: this.state.status,
+      due_date: this.state.due_date
+    }
     axios({
       url: `/todos/${this.props.match.params.id}`,
       method: 'PUT',
       headers: {
         access_token: localStorage.getItem('access_token')
       },
-      data: this.state.todo
+      data: payload
     })
       .then(_ => {this.props.history.push('/')})
       .catch(err => {
@@ -50,27 +56,17 @@ export default class Edit extends Component {
   }
 
   render() {
-    // const { match, location, history } = this.props;
-    // console.log(match.params)
     return(
       <div className="container">
-        {/* {this.state.todo.title}
-        {this.state.todo.description}
-        {this.state.todo.status}
-        {this.state.todo.due_date}
-        <br></br> */}
         <h1 className="text-center py-3">Edit Your Todo</h1>
         <form method="post">
           <div className="form-group row">
             <label className="col-sm-2 col-form-label">Title</label>
             <div className="col-sm-10">
-              <input type="text" className="form-control" value={this.state.todo.title}
+              <input type="text" className="form-control" value={this.state.title}
                 onChange={(e) => this.setState({
                   ...this.state,
-                  todo: {
-                    ...this.state.todo,
-                    title: e.target.value
-                  }
+                  title: e.target.value
                 })}
               />
             </div>
@@ -78,26 +74,20 @@ export default class Edit extends Component {
           <div className="form-group row mt-3">
             <label className="col-sm-2 col-form-label">Description</label>
             <div className="col-sm-10">
-              <input type="text" className="form-control" value={this.state.todo.description}
+              <input type="text" className="form-control" value={this.state.description}
                 onChange={(e) => this.setState({
                   ...this.state,
-                  todo: {
-                    ...this.state.todo,
-                    description: e.target.value
-                  }
+                  description: e.target.value
                 })}/>
             </div>
           </div>
           <div className="form-group row mt-3">
             <label className="col-sm-2 col-form-label">Status</label>
             <div className="col-sm-10">
-              <input type="text" className="form-control" value={this.state.todo.status}
+              <input type="text" className="form-control" value={this.state.status}
                 onChange={(e) => this.setState({
                   ...this.state,
-                  todo: {
-                    ...this.state.todo,
-                    status: e.target.value
-                  }
+                  status: e.target.value
                 })}
               />
             </div>
@@ -105,13 +95,10 @@ export default class Edit extends Component {
           <div className="form-group row mt-3">
             <label className="col-sm-2 col-form-label">Due Date</label>
             <div className="col-sm-10">
-              <input type="date" className="form-control" value={this.state.todo.due_date}
+              <input type="date" className="form-control" value={this.state.due_date}
                 onChange={(e) => this.setState({
                   ...this.state,
-                  todo: {
-                    ...this.state.todo,
-                    due_date: e.target.value
-                  }
+                  due_date: e.target.value
                 })}
               />
             </div>
