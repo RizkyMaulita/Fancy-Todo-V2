@@ -44,8 +44,8 @@
 
 /* Login */
 .img-login {
-  width: 500px;
-  padding-left: 10px;
+  width: 300px;
+  padding-top: 30px;
 }
 .btn-login {
   background-color: #6397ffc2;
@@ -76,4 +76,14 @@
 .btn-add {
   background-color: #6397ff9d;
   width: 130px;
+}
+
+/* Regist */
+.img-regist {
+  width: 350px;
+  padding: 10px;
+}
+.link-regist {
+  text-decoration: none;
+  color: #282c34;
 }

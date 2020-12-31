@@ -4,6 +4,7 @@ import Navbar from './components/Navbar.jsx'
 import Login from './pages/Login.jsx'
 import Home from './pages/Home.jsx'
 import Edit from './pages/Edit.jsx'
+import Register from './pages/Register.jsx'
 import { BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
 import React, {useState, useEffect} from 'react';
 import Guard from './middlewares/guards.jsx'
@@ -25,6 +26,12 @@ function App() {
             render={(props) => {
               if (localStorage.getItem('access_token')) return <Redirect to='/' />
               return <Login {...props} setIsLogin={(status) => setIsLogin(status)} ></Login> 
+            }}
+           />
+           <Route path="/register" exact 
+            render={(props) => {
+              if (localStorage.getItem('access_token')) return <Redirect to='/' />
+              return <Register {...props}></Register> 
             }}
            />
           <Guard path="/todos/:id" exact component={Edit}/>

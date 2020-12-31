@@ -1,32 +1,30 @@
 import React, {Component} from 'react'
-import { Link } from 'react-router-dom'
-import login from '../assets/img/login.svg'
+import register from '../assets/img/register.svg'
 import axios from '../config/axiosinstance'
 
-export default class Login extends Component {
+export default class Register extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      username: '',
       email: '',
       password: ''
     }
   }
-  login (e) {
+  register (e) {
     e.preventDefault()
     const payload = {
+      username: this.state.username,
       email: this.state.email,
       password: this.state.password
     }
     axios({
-      url: '/login',
+      url: '/register',
       method: 'POST',
       data: payload
     })
       .then(({data}) => {
-        console.log(data)
-        localStorage.setItem('access_token', data.accessToken)
-        this.props.setIsLogin(true)
-        this.props.history.push('/')
+        this.props.history.push('/login')
       })
       .catch(err => {
         console.log(err)
@@ -35,9 +33,17 @@ export default class Login extends Component {
   render () {
     return (
       <div className="row container-fluid p-5">
-        <div className="card col-8 m-2 p-4">
-          <h1 className="text-center my-3"> Login </h1>
+        <div className="card col-8 p-4">
+          <h1 className="text-center my-3"> Register </h1>
           <form method="POST">
+          <div className="form-group row my-3">
+              <label className="col-form-label col-2 col-sm-2"> Username </label>
+              <div className="col-10">
+                <input type="text" placeholder="input your username"className="form-control"
+                  onChange={(e) => this.setState({ username: e.target.value })}
+                ></input>
+              </div>
+            </div>
             <div className="form-group row my-3">
               <label className="col-form-label col-2 col-sm-2"> Email </label>
               <div className="col-10">
@@ -55,17 +61,14 @@ export default class Login extends Component {
               </div>
             </div>
             <div className="d-flex justify-content-center">
-              <button type="submit" className="btn btn-login" onClick={ (e) => this.login(e)}>Sign In</button>
+              <button type="submit" className="btn btn-login" onClick={ (e) => this.register(e)}>Sign Up</button>
             </div>
           </form>
-          <Link to="/register" className="my-5 text-center link-regist"> Have no account ? Please register first !</Link>
         </div>
-        <div className="card col-3 m-2">
-          <img src={login} className="img-login" alt="img-login"></img>
+        <div className="card col-3 cols-sm-6 m-2">
+          <img src={register} className="img-regist" alt="img-regist"></img>
         </div>
       </div>
     )
   }
-
-
 }

@@ -32,11 +32,12 @@ export default class Navbar extends Component {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav me-auto p-2 mb-lg-0">
                 <li className="nav-item">
-                  <button className="btn nav-link active">Home</button>
+                  <button className="btn nav-link active"><Link to="/" className="link-login">Home</Link> </button>
                 </li>
               </ul>
               <div className="d-flex">
                 {!this.props.isLogin && <button className="btn p-2"><Link to="/login" className="link-login">Login</Link></button> }
+                {!this.props.isLogin && <button className="btn p-2"><Link to="/register" className="link-login">Register</Link></button> }
                 {this.props.isLogin && <Logout setIsLogin={(status) => this.props.setIsLogin(status)} ></Logout> }
               </div>
             </div>
