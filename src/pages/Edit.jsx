@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import axios from '../config/axiosinstance'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class Edit extends Component {
   constructor (props) {
@@ -51,13 +53,14 @@ export default class Edit extends Component {
     })
       .then(_ => {this.props.history.push('/')})
       .catch(err => {
-        console.log(err)
+        err.response.data.messages.map(e => toast.error(e.message, { position: 'top-center' }))
       })
   }
 
   render() {
     return(
       <div className="container">
+        <ToastContainer />
         <h1 className="text-center py-3">Edit Your Todo</h1>
         <form method="post">
           <div className="form-group row">

@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 import login from '../assets/img/login.svg'
 import axios from '../config/axiosinstance'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class Login extends Component {
   constructor (props) {
@@ -23,21 +25,24 @@ export default class Login extends Component {
       data: payload
     })
       .then(({data}) => {
-        console.log(data)
+        document.getElementById('form-login').reset()
+        toast.success('Success login', { position: 'top-center' })
         localStorage.setItem('access_token', data.accessToken)
         this.props.setIsLogin(true)
         this.props.history.push('/')
       })
       .catch(err => {
-        console.log(err)
+        toast.error(err.response.data.message, {position: 'top-center'})
+        document.getElementById('form-login').reset()
       })
   }
   render () {
     return (
       <div className="row container-fluid p-5">
+        <ToastContainer />
         <div className="card col-8 m-2 p-4">
           <h1 className="text-center my-3"> Login </h1>
-          <form method="POST">
+          <form method="POST" id="form-login">
             <div className="form-group row my-3">
               <label className="col-form-label col-2 col-sm-2"> Email </label>
               <div className="col-10">

@@ -1,5 +1,7 @@
 import axios from '../config/axiosinstance'
 import React, {Component} from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class CreateTodo extends Component {
   constructor (props) {
@@ -26,16 +28,18 @@ export default class CreateTodo extends Component {
       }
     })
       .then(_ => {
+        toast('Successfully created new todo', { position: 'top-center' })
         this.props.status()
         this.props.fetchTodo()
       })
       .catch(err => {
-        console.log(err)
+        err.response.data.messages.map(e => toast.error(e.message, { position: 'top-center' }))
       })
   }
   render () {
     return(
       <div className="container">
+        <ToastContainer />
         <form method="post">
           <div className="form-group row my-2">
             <label className="col-sm-2 col-form-label">Title</label>

@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import register from '../assets/img/register.svg'
 import axios from '../config/axiosinstance'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class Register extends Component {
   constructor (props) {
@@ -27,16 +29,18 @@ export default class Register extends Component {
         this.props.history.push('/login')
       })
       .catch(err => {
-        console.log(err)
+        const errMessages = err.response.data.messages
+        errMessages.map(e => toast.error(e.message, { position: 'top-center'}))
       })
   }
   render () {
     return (
       <div className="row container-fluid p-5">
+        <ToastContainer />
         <div className="card col-8 p-4">
           <h1 className="text-center my-3"> Register </h1>
           <form method="POST">
-          <div className="form-group row my-3">
+            <div className="form-group row my-3">
               <label className="col-form-label col-2 col-sm-2"> Username </label>
               <div className="col-10">
                 <input type="text" placeholder="input your username"className="form-control"
