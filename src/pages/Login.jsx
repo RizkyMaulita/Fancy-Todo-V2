@@ -24,6 +24,7 @@ export default class Login extends Component {
       .then(({data}) => {
         console.log(data)
         localStorage.setItem('access_token', data.accessToken)
+        this.props.setIsLogin(true)
         this.props.history.push('/')
       })
       .catch(err => {

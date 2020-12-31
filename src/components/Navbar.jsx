@@ -1,12 +1,13 @@
 import React, { Component} from 'react'
 import { Link } from 'react-router-dom'
+import Logout from './Logout.jsx'
 
 export default class Navbar extends Component {
   // constructor (props) {
   //   super(props)
   // }
   checkLogin () {
-    if (localStorage.getItem('access_token')) return true
+    if (this.props.isLogin) return true
     return false
   }
 
@@ -18,10 +19,7 @@ export default class Navbar extends Component {
     this.checkLogin()
     localStorage.getItem('access_token')
   }
-  logout (e) {
-    localStorage.removeItem('access_token')
-    this.props.history.push('/login')
-  }
+  
   render () {
     return (
       <div>
@@ -38,8 +36,8 @@ export default class Navbar extends Component {
                 </li>
               </ul>
               <div className="d-flex">
-                {!localStorage.getItem('access_token') && <button className="btn p-2"><Link to="/login" className="link-login">Login</Link></button> }
-                {localStorage.getItem('access_token') && <button className="btn p-2" onClick={(e) => this.logout(e)}>Logout</button> }
+                {!this.props.isLogin && <button className="btn p-2"><Link to="/login" className="link-login">Login</Link></button> }
+                {this.props.isLogin && <Logout setIsLogin={(status) => this.props.setIsLogin(status)} ></Logout> }
               </div>
             </div>
           </div>

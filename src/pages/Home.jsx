@@ -45,17 +45,18 @@ export default class Home extends Component {
       ...this.state,
       statusCreateTodo: !status })
   }
+
   render () {
     return (
       <div>
         <div className="container">
           <div className="container row cols-md-2">
-            <div className="col-9 cols-sm-12 my-3">
+            <div className="col-12 cols-sm-12 my-3">
               <div className="card">
                 <div className="card-header text-center">
-                  <h5>Your Todo List</h5>
+                  <h2>Your Todo List</h2>
                 </div>
-                <button className="btn btn-create mx-auto my-2" onClick={(e) => this.createTodo(e)}> Create New Todo</button>
+                <button className="btn btn-create mx-auto mt-3 mb-2" onClick={(e) => this.createTodo(e)}> Create New Todo</button>
                 {/* ---- harus ada form disini ---- */}
                 {this.state.statusCreateTodo && 
                   <CreateTodo fetchTodo={() => this.fetchTodo()} status={() => this.setState({
@@ -63,7 +64,7 @@ export default class Home extends Component {
                     statusCreateTodo: false
                   })}></CreateTodo>
                 }
-                <div className="card-body row row-cols-1 row-cols-md-2">
+                <div className="card-body row row-cols-1 row-cols-md-3">
                   {/* --- Loop Data --- */}
                   {this.state.todos.map((e) => (
                    <Todo key={e.id} todo={e} fetchTodo={() => this.fetchTodo()} editTodo={(id) =>this.editTodo(id)}></Todo> 
@@ -71,15 +72,7 @@ export default class Home extends Component {
                 </div>
               </div>
             </div>
-            <div className="col-3 my-3 cols-sm-6">
-              <div className="card">
-                <div className="card-header text-center"> <h5 className="text-center">Quote of the Day</h5> </div>
-                <div className="card-body">
-                  <p><i>"Quote hari ini...."</i></p>
-                  <p className="d-flex justify-content-end"> <i>'-- Author --'</i> </p>
-                </div>
-              </div>
-            </div>
+          
           </div>
         </div>
       </div>

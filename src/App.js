@@ -1,24 +1,32 @@
 // import logo from './logo.svg';
 import './App.css';
-import Navbar from './components/Navbar'
-import Login from './pages/Login'
+import Navbar from './components/Navbar.jsx'
+import Login from './pages/Login.jsx'
 import Home from './pages/Home.jsx'
 import Edit from './pages/Edit.jsx'
 
-import { BrowserRouter as Router, Route, useHistory} from 'react-router-dom'
-import { Fragment } from 'react';
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import React, {useState, useEffect} from 'react';
+
 
 function App() {
-  let history = useHistory()
+  const [isLogin, setIsLogin] = useState(false)
+
+  useEffect(() => {
+    if(localStorage.getItem('access_token')) setIsLogin(true)
+  }, [isLogin])
+
   return (
     <Router>
       <div className="App, container-fluid">
-        <Fragment>
-          <Navbar history={history} />
+        <Navbar setIsLogin={(status) => setIsLogin(status)} isLogin={isLogin} />
+        <Switch>
           <Route path="/" exact component={Home}></Route>
-          <Route path="/login" exact component={Login}></Route>
+          <Route path="/login" exact 
+            render={(props) => <Login {...props} setIsLogin={(status) => setIsLogin(status)} ></Login> }
+          ></Route>
           <Route path="/todos/:id" exact component={Edit}></Route>
-        </Fragment>
+        </Switch>
       </div>
 
     </Router>
