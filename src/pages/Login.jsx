@@ -32,7 +32,7 @@ export default class Login extends Component {
         this.props.history.push('/')
       })
       .catch(err => {
-        toast.error(err.response.data.message, {position: 'top-center'})
+        if(err) toast.error(err.response.data.message, {position: 'top-center'})
         document.getElementById('form-login').reset()
       })
   }

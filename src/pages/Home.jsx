@@ -1,39 +1,41 @@
-import axios from '../config/axiosinstance'
+// import axios from '../config/axiosinstance'
 import React, {Component} from 'react'
 import Todo from '../components/Todo.jsx'
 import CreateTodo from '../components/CreateTodo.jsx'
+import {connect} from 'react-redux'
 
-export default class Home extends Component {
+class Home extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      todos: [],
+      // todos: [],
       statusCreateTodo: false
     }
   }
   componentDidMount () {
-    this.fetchTodo()
+    // this.fetchTodo()
+    this.props.getAllTodos()
   }
 
-  fetchTodo () {
-    axios({
-      url: '/todos',
-      method: 'GET',
-      headers: {
-        access_token: localStorage.getItem('access_token')
-      }
-    })
-      .then(({ data }) => {
-        this.setState({
-          ...this.state,
-          todos: data.data
-        })
-        console.log(this.state.todos)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
+  // fetchTodo () {
+  //   axios({
+  //     url: '/todos',
+  //     method: 'GET',
+  //     headers: {
+  //       access_token: localStorage.getItem('access_token')
+  //     }
+  //   })
+  //     .then(({ data }) => {
+  //       this.setState({
+  //         ...this.state,
+  //         todos: data.data
+  //       })
+  //       console.log(this.state.todos)
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+  //     })
+  // }
   editTodo (id) {
     this.props.history.push(`/todos/${id}`)
   }
@@ -66,7 +68,7 @@ export default class Home extends Component {
                 }
                 <div className="card-body row row-cols-1 row-cols-md-3">
                   {/* --- Loop Data --- */}
-                  {this.state.todos.map((e) => (
+                  {this.props.dataTodos.map((e) => (
                    <Todo key={e.id} todo={e} fetchTodo={() => this.fetchTodo()} editTodo={(id) =>this.editTodo(id)}></Todo> 
                   ))}
                 </div>
@@ -79,3 +81,18 @@ export default class Home extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    dataTodos: state.todos
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setTodo: (payload) => dispatch({type: 'SET_TODOS', payload}),
+    getAllTodos: () => dispatch({type: 'FETCH_TODOS'})
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
