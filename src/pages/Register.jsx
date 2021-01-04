@@ -29,8 +29,10 @@ export default class Register extends Component {
         this.props.history.push('/login')
       })
       .catch(err => {
-        const errMessages = err.response.data.messages
-        errMessages.map(e => toast.error(e.message, { position: 'top-center'}))
+        if(err) {
+          const errMessages = err.response.data.messages
+          errMessages.map(e => toast.error(e.message, { position: 'top-center'}))
+        }
       })
   }
   render () {

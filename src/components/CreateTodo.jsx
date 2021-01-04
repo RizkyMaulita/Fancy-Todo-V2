@@ -33,7 +33,9 @@ export default class CreateTodo extends Component {
         this.props.fetchTodo()
       })
       .catch(err => {
-        err.response.data.messages.map(e => toast.error(e.message, { position: 'top-center' }))
+        if(err) {
+          err.response.data.messages.map(e => toast.error(e.message, { position: 'top-center' }))
+        }
       })
   }
   render () {

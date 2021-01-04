@@ -61,7 +61,7 @@ class Home extends Component {
                 <button className="btn btn-create mx-auto mt-3 mb-2" onClick={(e) => this.createTodo(e)}> Create New Todo</button>
                 {/* ---- harus ada form disini ---- */}
                 {this.state.statusCreateTodo && 
-                  <CreateTodo fetchTodo={() => this.fetchTodo()} status={() => this.setState({
+                  <CreateTodo fetchTodo={() => this.props.getAllTodos()} status={() => this.setState({
                     ...this.state,
                     statusCreateTodo: false
                   })}></CreateTodo>
@@ -69,7 +69,7 @@ class Home extends Component {
                 <div className="card-body row row-cols-1 row-cols-md-3">
                   {/* --- Loop Data --- */}
                   {this.props.dataTodos.map((e) => (
-                   <Todo key={e.id} todo={e} fetchTodo={() => this.fetchTodo()} editTodo={(id) =>this.editTodo(id)}></Todo> 
+                   <Todo key={e.id} todo={e} fetchTodo={() => this.props.getAllTodos()} editTodo={(id) =>this.editTodo(id)}></Todo> 
                   ))}
                 </div>
               </div>
